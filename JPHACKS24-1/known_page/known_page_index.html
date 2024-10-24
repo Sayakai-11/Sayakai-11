@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Known Persons</title>
+    <link rel="stylesheet" href="known_page_index.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+          <h1 class="logo">Vini</h1>
+          <ul class="nav">
+            <li class="header-hover-color"><a href="./suspicious_page/suspicious_page_index.html">husinsya</a></li>
+            <li class="header-hover-color"><a href="./known_page/known_page_index.html">tizn</a></li>
+            <li class="header-hover-color"><a href="./calender_page/calender_page_index.html">calender</a></li>
+            <li class="header-hover-color"><a href="#">nnn</a></li>
+          </ul>
+        </div>
+    </header>
+    <h1>既知人物リスト</h1>
+    <div id="known-list">
+        <!-- 既知人物の画像をここに追加 -->
+    </div>
+
+    <script>
+        function addKnownImage(imageUrl) {
+            const knownList = document.getElementById('known-list');
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = "既知人物";
+            knownList.appendChild(img);
+        }
+
+        // 例として、バックエンドから返ってきたURLを利用して画像を追加する場合
+        addKnownImage('/images/known/known_1.jpg');
+    </script>
+</body>
+</html>
