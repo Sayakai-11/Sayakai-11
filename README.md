@@ -29,6 +29,8 @@
 pip
 install -r requirements.txt
 
+```
+
 ## ディレクリ構成
 project/
 ├── same3_2.py                      # メインのFlaskアプリケーション
@@ -53,22 +55,26 @@ project/
 コードをコピーする
 git clone https://github.com/username/repository.git
 cd repository
+```
 
-仮想環境の作成
+#仮想環境の作成
 ```bash
 コードをコピーする
 python -m venv venv
 source venv/bin/activate  # Windowsの場合は venv\Scripts\activate
+```
 
-依存関係のインストール
+#依存関係のインストール
 ```bash
 コードをコピーする
 pip install -r requirements.txt
+```
 
-サーバーの起動
+#サーバーの起動
 ```bash
 コードをコピーする
 python app.py
+```
 
 デフォルトでは、http://127.0.0.1:5000 でアプリケーションが起動します。
 
@@ -79,5 +85,3 @@ CORSの問題：
 フロントエンドとバックエンドが異なるオリジンにある場合、flask_corsの設定が必要です。コード内のCORS(app)の行を確認し、必要に応じて設定を追加してください。
 画像保存ディレクトリのパスエラー：
 画像保存用のディレクトリが存在しない場合、static/images/knownとstatic/images/dangerディレクトリを手動で作成してください。また、known/とdanger/ディレクトリも同様に作成が必要です。
-
-a
