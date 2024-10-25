@@ -82,5 +82,15 @@ body {
     text-decoration:none;
   }
   
+  .container{
+    max-width: 1200px;
+    padding:10px 15px;
+    width:100%;
+  }
 
+  .container:after {
+      clear: both;
+      content: "";
+      display: table;
+  }
 
