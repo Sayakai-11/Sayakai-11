@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suspicious Persons</title>
+    <title>Danger Persons</title>
     <link rel="stylesheet" href="../css/suspicious_page_index.css">
     <style>
         img {
@@ -11,6 +11,7 @@
             height: auto;
             margin: 10px;
         }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -27,8 +28,9 @@
         </div>
     </header>
     <h1>危険人物リスト</h1>
-    <div id="danger-list">
-    <?php
+
+    <div id="gallery">
+        <?php
         // 画像が保存されているフォルダのパス
         $image_folder = "../images/danger/";
 
