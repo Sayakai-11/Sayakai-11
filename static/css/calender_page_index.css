@@ -45,12 +45,15 @@ body {
     color:#fff;
     width:100%;
   }
+
   .header .nav li.active a {
+
     color: gray;            /* 文字色を灰色に */
     border-bottom: 2px solid gray; /* 下に線を付ける */
 }
 
 .header .nav li a {
+  color: gray;   
     text-decoration: none; /* 通常のリンクは下線なし */
 }
 
@@ -78,16 +81,5 @@ body {
     color:inherit;
     text-decoration:none;
   }
-  
-  .container{
-    max-width: 1200px;
-    padding:10px 15px;
-    width:100%;
-  }
 
-  .container:after {
-      clear: both;
-      content: "";
-      display: table;
-  }
 

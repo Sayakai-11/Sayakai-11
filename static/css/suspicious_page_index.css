@@ -45,20 +45,19 @@ body {
     color:#fff;
     width:100%;
   }
-
-  .header .nav li.active a {
-    color: gray;            /* 文字色を灰色に */
-    border-bottom: 2px solid gray; /* 下に線を付ける */
+  
+.header .nav li.active a {
+  color: gray;            /* 文字色を灰色に */
+  border-bottom: 2px solid gray; /* 下に線を付ける */
 }
 
 .header .nav li a {
-    text-decoration: none; /* 通常のリンクは下線なし */
+  text-decoration: none; /* 通常のリンクは下線なし */
 }
 
 /* マウスオーバー時のスタイル（オプション） */
 .header .nav li.header-hover-color a:hover {
     color: gray;
-    border-bottom: 2px solid gray;
 }
 
   .logo{
