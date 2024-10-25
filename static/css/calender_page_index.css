@@ -45,6 +45,19 @@ body {
     color:#fff;
     width:100%;
   }
+  .header .nav li.active a {
+    color: gray;            /* 文字色を灰色に */
+    border-bottom: 2px solid gray; /* 下に線を付ける */
+}
+
+.header .nav li a {
+    text-decoration: none; /* 通常のリンクは下線なし */
+}
+
+/* マウスオーバー時のスタイル（オプション） */
+.header .nav li.header-hover-color a:hover {
+    color: gray;
+}
   .logo{
     width: 200px;  /* お好みの幅に調整 */
     height: auto;  /* 高さは自動調整 */
@@ -78,11 +91,3 @@ body {
       display: table;
   }
 
-.header-hover-color {
-    color: #f0f0f0;
-}
-
-.header-hover-color:hover {
-    background: #636363;
-    color: #f0f0f0;
-}
