@@ -10,8 +10,8 @@ CORS(app)
 # 画像保存フォルダ
 known_folder = './known'
 danger_folder = './danger'
-static_known_folder = './images/known'  # フロントエンドに表示するためのフォルダ
-static_danger_folder = './images/danger'
+static_known_folder = './static/images/known'  # フロントエンドに表示するためのフォルダ
+static_danger_folder = './static/images/danger'
 
 # knownフォルダとdangerフォルダの画像をエンコード
 known_encodings = []
