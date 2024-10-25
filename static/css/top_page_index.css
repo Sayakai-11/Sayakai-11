@@ -1,0 +1,107 @@
+body {
+    font-family: 'Noto Sans JP', Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.app-container {
+    display: flex; /* フレックスボックスを使用 */
+    align-items: center; /* 縦方向に中央に配置 */
+    flex: 1; /* 残りのスペースを占める */
+}
+
+.button {
+    font-size: 50px;
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    padding: 15px 5px;
+    text-decoration: none;
+    color: #f09c8a;
+    background: #f0f0f0;
+    border-radius: 15px;
+    transition: .4s;
+    padding: 15px 30px;
+}
+
+.button:hover {
+    background: #636363;
+}
+
+.button-wrap {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 中央に配置 */
+    position: absolute; /* 絶対位置に設定 */
+    left: 60%; /* 水平方向の中央に配置 */
+    top: 40%; /* 水平方向の中央に配置 */
+    transform: translateX(-50%); /* 中心に合わせるために左に移動 */
+}
+
+
+.page-wrap {
+    display: flex; /* フレックスボックスを使用 */
+    justify-content: center; /* 水平方向に左右を配置 */
+    position: absolute; /* 絶対位置に設定 */
+    min-height: 100vh; /* 画面全体を使うが、最低限の高さを確保 */
+    padding: 20px; /* 上下に余白を追加 */
+    left: 15%; /* 水平方向の中央に配置 */
+    top: 10%; /* 水平方向の中央に配置 */
+}
+.app-logo {
+    max-width: 45%; /* 画面に合わせて最大幅を設定 */
+    height: auto; /* 高さは自動調整 */
+    display: block; /* ブロック要素として表示 */
+    margin-right: 20px; /* ロゴとボタンの間にスペースを追加 */
+}
+
+
+.header{
+    height:120px;
+    background:#f09c8a;
+    color:#fff;
+    width:100%;
+  }
+  .logo{
+    width: 200px;  /* お好みの幅に調整 */
+    height: auto;  /* 高さは自動調整 */
+    display: block; /* 画像をブロック要素にして余白を管理 */
+    margin: 0 10px;
+    line-height:60px;
+    float:left;
+  }
+  .nav{
+    list-style:none;
+    float:left;
+  }
+  .nav li{display:inline-block;}
+  .nav li a{
+    display:inline-block;
+     padding:20px 20px;
+     font-size:25px;
+    color:inherit;
+    text-decoration:none;
+  }
+  
+  .container{
+    max-width: 1200px;
+    padding:10px 15px;
+    width:100%;
+  }
+
+  .container:after {
+      clear: both;
+      content: "";
+      display: table;
+  }
+
+.header-hover-color {
+    color: #f0f0f0;
+}
+
+.header-hover-color:hover {
+    color: #636363;
+}

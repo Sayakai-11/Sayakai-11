@@ -33,21 +33,27 @@ install -r requirements.txt
 
 ## ディレクリ構成
 project/
-├── same3_2.py                      # メインのFlaskアプリケーション
-├── templates/                  # HTMLテンプレート
-│   └── index.html              # フロントエンドのメインページ
-├── static/                     # 静的ファイル（CSS, JS）
-│   ├── images/                 # 画像の保存フォルダ
-│   │   ├── known/              # 知人の画像を保存
-│   │   └── danger/             # 不審者の画像を保存
-│   ├── css/                    # CSSファイル
-│   │   └── top_page_index.css  # メインのスタイルシート
-│   └── js/                     # JavaScriptファイル
-│       └── app.js              # クライアント側のスクリプト
-├── known/                      # 既知の人物の画像
-├── danger/                     # 危険人物の画像
-├── requirements.txt            # 依存パッケージのリスト
-└── README.md                   # README
+├── same3_2.py                          # メインのFlaskアプリケーション
+├── static/                             # 静的ファイル（CSS, JS）
+│   ├── images/                         # 画像の保存フォルダ
+│   │   ├── known/                      # 知人の画像を保存
+│   │   └── danger/                     # 不審者の画像を保存
+│   ├── css/                            # CSSファイル
+|   |   ├── top_page_index.css          # toppageのcss
+|   |   ├── suspicious_page_index.css   #不審者ページのcss
+|   |   ├── known_page_index.css        #知人ページのcss
+|   |   ├── interphone_page_index.css   #インターフォンページのcss
+|   |   └── calender_page_index.css     #カレンダーページのcss
+|   └── html/                           # フロントエイドのトップページ
+│       ├── top_page_index.html         # トップページのhtml
+|       ├── suspicious_page_index.html  #不審者ページのhtml
+|       ├── known_page_index.html       #知人ページのhtml
+|       ├── interphone_page_index.html  #インターフォンページのhtml
+|       └── calender_page_index.html    #カレンダーページのhtml 
+├── known/                              # 既知の人物の画像
+├── danger/                             # 危険人物の画像
+├── requirements.txt                    # 依存パッケージのリスト
+└── README.md                           # README
 
 ## 開発環境の構築方法
 #リポジトリのクローン

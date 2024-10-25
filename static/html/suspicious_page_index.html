@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suspicious Persons</title>
+    <link rel="stylesheet" href="../css/suspicious_page_index.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="../html/top_page_index.html"> <!-- トップページへのリンク -->
+                <img src="../../logo3.png" alt="Logo" class="logo"> <!-- 一つ上の階層から画像を読み込む -->
+            </a>
+          <ul class="nav">
+            <li class="header-hover-color"><a href="suspicious_page_index.html">危険人物</a></li>
+            <li class="header-hover-color"><a href="known_page_index.html">知人</a></li>
+            <li class="header-hover-color"><a href="calender_page_index.html">カレンダー</a></li>
+            <li class="header-hover-color"><a href="interphone_page_index.html">インターホン</a></li>
+          </ul>
+        </div>
+    </header>
+    <h1>危険人物リスト</h1>
+    <div id="danger-list">
+        <!-- 危険人物の画像をここに追加 -->
+    </div>
+
+    <script>
+        function addDangerImage(imageUrl) {
+            const dangerList = document.getElementById('danger-list');
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = "危険人物";
+            dangerList.appendChild(img);
+        }
+
+        // 例として、バックエンドから返ってきたURLを利用して画像を追加する場合
+        addDangerImage('/images/danger/danger_1.jpg');
+    </script>
+</body>
+</html>
