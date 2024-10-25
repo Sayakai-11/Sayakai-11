@@ -46,14 +46,12 @@ body {
     width:100%;
   }
 
-  .header .nav li.active a {
-
+.header .nav li.active a {
     color: gray;            /* 文字色を灰色に */
     border-bottom: 2px solid gray; /* 下に線を付ける */
 }
 
 .header .nav li a {
-  color: gray;   
     text-decoration: none; /* 通常のリンクは下線なし */
 }
 
