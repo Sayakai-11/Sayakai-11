@@ -81,10 +81,9 @@ body {
     background:#f09c8a;
     color:#fff;
     width:100%;
-}
+  }
 
-
-.header .nav li.active a {
+  .header .nav li.active a {
     color: gray;            /* 文字色を灰色に */
     border-bottom: 2px solid gray; /* 下に線を付ける */
 }
@@ -97,7 +96,6 @@ body {
 .header .nav li.header-hover-color a:hover {
     color: gray;
 }
-.logo{
     width: 200px;  /* お好みの幅に調整 */
     height: auto;  /* 高さは自動調整 */
     display: block; /* 画像をブロック要素にして余白を管理 */
@@ -121,15 +119,5 @@ body {
     text-decoration:none;
 }
   
-.container{
-    max-width: 1200px;
-    padding:10px 15px;
-    width:100%;
-}
 
-.container:after {
-      clear: both;
-      content: "";
-      display: table;
-}
 

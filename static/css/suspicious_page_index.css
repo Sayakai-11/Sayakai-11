@@ -45,7 +45,6 @@ body {
     color:#fff;
     width:100%;
   }
-
   
 .header .nav li.active a {
   color: gray;            /* 文字色を灰色に */
@@ -58,8 +57,9 @@ body {
 
 /* マウスオーバー時のスタイル（オプション） */
 .header .nav li.header-hover-color a:hover {
-  color: gray;
+    color: gray;
 }
+
   .logo{
     width: 200px;  /* お好みの幅に調整 */
     height: auto;  /* 高さは自動調整 */
