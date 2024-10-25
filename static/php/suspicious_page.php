@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suspicious Persons</title>
     <link rel="stylesheet" href="../css/suspicious_page_index.css">
+    <style>
+        img {
+            width: 150px;
+            height: auto;
+            margin: 10px;
+        }
 </head>
 <body>
     <header class="header">
@@ -22,20 +28,23 @@
     </header>
     <h1>危険人物リスト</h1>
     <div id="danger-list">
-        <!-- 危険人物の画像をここに追加 -->
-    </div>
+    <?php
+        // 画像が保存されているフォルダのパス
+        $image_folder = "../images/danger/";
 
-    <script>
-        function addDangerImage(imageUrl) {
-            const dangerList = document.getElementById('danger-list');
-            const img = document.createElement('img');
-            img.src = imageUrl;
-            img.alt = "危険人物";
-            dangerList.appendChild(img);
+        // フォルダ内のファイルを取得
+        if (is_dir($image_folder)) {
+            if ($handle = opendir($image_folder)) {
+                while (false !== ($file = readdir($handle))) {
+                    // 画像ファイルの拡張子をチェック
+                    if ($file != '.' && $file != '..' && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
+                        echo '<img src="' . $image_folder . $file . '" alt="' . $file . '">';
+                    }
+                }
+                closedir($handle);
+            }
         }
-
-        // 例として、バックエンドから返ってきたURLを利用して画像を追加する場合
-        addDangerImage('/images/danger/danger_1.jpg');
-    </script>
+        ?>
+    </div>
 </body>
 </html>
