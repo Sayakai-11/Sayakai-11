@@ -44,7 +44,7 @@ body {
     background:#f09c8a;
     color:#fff;
     width:100%;
-
+}
 
 .header .nav li.active a {
   color: gray;            /* 文字色を灰色に */
@@ -61,10 +61,6 @@ body {
 }
 
   .logo{
-
-  color: gray;
-}
- main
     width: 200px;  /* お好みの幅に調整 */
     height: auto;  /* 高さは自動調整 */
     display: block; /* 画像をブロック要素にして余白を管理 */

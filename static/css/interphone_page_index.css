@@ -96,6 +96,8 @@ body {
 .header .nav li.header-hover-color a:hover {
     color: gray;
 }
+
+.log{
     width: 200px;  /* お好みの幅に調整 */
     height: auto;  /* 高さは自動調整 */
     display: block; /* 画像をブロック要素にして余白を管理 */
