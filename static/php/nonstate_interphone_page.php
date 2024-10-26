@@ -94,18 +94,32 @@
         <button id="danger">dangerとして登録</button>
     </div>
 
-    
+    <audio id="absentAudio" src="../audio/rusu.mp3"></audio>
+
+
     <script>
         const video = document.getElementById('video');
         const message = document.getElementById('message');
         const actionButtons = document.getElementById('action-buttons');
         const knownButton = document.getElementById('known');
         const dangerButton = document.getElementById('danger');
+        const audioChoice = document.getElementById('audio-choice');
+        const playAudioButton = document.getElementById('play-audio');
+        const skipAudioButton = document.getElementById('skip-audio');
+        const absentAudio = document.getElementById('absentAudio');
 
         // カメラの映像を取得して表示
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => { video.srcObject = stream; })
             .catch(error => { console.error("カメラの取得に失敗しました:", error); });
+
+        // 音声再生の関数
+        function playAbsentAudio() {
+            absentAudio.play();
+        }
+
+        // 音声が再生中かどうかを示すフラグ
+        let isPlayingPleaseWaitAudio = false;
 
             // フレームを定期的にAPIに送信して結果を取得
         setInterval(async () => {
@@ -134,21 +148,44 @@
                 message.textContent = '危険です！';
                 message.classList.add('danger'); // 危険な場合は赤色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
+                // 3秒後に音声を再生
+                if(!isPlayingPleaseWaitAudio) {
+                    setTimeout(() => {
+                        const pleaseWaitAudio = document.getElementById('absentAudio');
+                        pleaseWaitAudio.play();
+                    }, 3000); // 3秒 (3000ミリ秒) 後に再生
+                    isPlayingPleaseWaitAudio = true;
+                }
             } else if (data.result === 'known') {
                 message.textContent = '既知の人物です';
                 message.classList.add('known'); // 既知の人物は緑色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
+                // 3秒後に音声を再生
+                if(!isPlayingPleaseWaitAudio) {
+                    setTimeout(() => {
+                        const pleaseWaitAudio = document.getElementById('absentAudio');
+                        pleaseWaitAudio.play();
+                    }, 3000); // 3秒 (3000ミリ秒) 後に再生
+                    isPlayingPleaseWaitAudio = true;
+                }
             } else if (data.result === 'unknown') {
                 message.innerHTML = '未知の人物が検出されました。<br>登録してください。';
                 message.classList.add('unknown'); // 未知の人物は黒色
-                actionButtons.classList.remove('hidden'); // アクションボタンを表示
+                actionButtons.classList.add('hidden'); // アクションボタンを表示
+                // 3秒後に音声を再生
+                if(!isPlayingPleaseWaitAudio) {
+                    setTimeout(() => {
+                        const pleaseWaitAudio = document.getElementById('absentAudio');
+                        pleaseWaitAudio.play();
+                    }, 3000); // 3秒 (3000ミリ秒) 後に再生
+                    isPlayingPleaseWaitAudio = true;
+                }
 
-                knownButton.onclick = () => registerPerson(blob, 'known');
-                dangerButton.onclick = () => registerPerson(blob, 'danger');
             } else {
                 message.textContent = '顔を映してください。'; // 顔が認識できない場合のメッセージ
                 message.classList.add('unknown'); // 未知の人物は黒色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
+                isPlayingPleaseWaitAudio = false;
             }
             
         }, 3000); // 3秒ごとにフレームを送信
