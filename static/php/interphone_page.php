@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -33,6 +34,13 @@
         #action-buttons {
             margin-top: 10px; /* メッセージとのスペースを追加 */
             text-align: center; /* ボタンを中央に配置 */
+        }
+        #audio-choice {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
         }
         .hidden {
             display: none;
@@ -91,6 +99,12 @@
         <button id="known">knownとして登録</button>
         <button id="danger">dangerとして登録</button>
     </div>
+    <div id="audio-choice" class="hidden">
+        <button id="play-audio">音声を再生</button>
+    </div>
+
+    <audio id="absentAudio" src="../audio/rusu.mp3"></audio>
+    <audio id="pleaseWaitAudio" src="../audio/please_wait.mp3"></audio> <!--手が離せないときに流す音声-->
 
     
     <script>
@@ -99,11 +113,23 @@
         const actionButtons = document.getElementById('action-buttons');
         const knownButton = document.getElementById('known');
         const dangerButton = document.getElementById('danger');
+        const audioChoice = document.getElementById('audio-choice');
+        const playAudioButton = document.getElementById('play-audio');
+        const skipAudioButton = document.getElementById('skip-audio');
+        const absentAudio = document.getElementById('absentAudio');
 
         // カメラの映像を取得して表示
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => { video.srcObject = stream; })
             .catch(error => { console.error("カメラの取得に失敗しました:", error); });
+
+        // 音声再生の関数
+        function playAbsentAudio() {
+            absentAudio.play();
+        }
+
+        // 音声が再生中かどうかを示すフラグ
+        let isPlayingPleaseWaitAudio = false;
 
             // フレームを定期的にAPIに送信して結果を取得
         setInterval(async () => {
@@ -132,14 +158,28 @@
                 message.textContent = '危険です！';
                 message.classList.add('danger'); // 危険な場合は赤色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
+                audioChoice.classList.remove('hidden'); // 音声選択ボタンを表示
+                isPlayingPleaseWaitAudio = false; //音声が流れたかを記録するフラグ
             } else if (data.result === 'known') {
                 message.textContent = '既知の人物です';
                 message.classList.add('known'); // 既知の人物は緑色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
+                audioChoice.classList.add('hidden'); // 音声選択ボタンを非表示
+
+                 // 15秒後に音声を再生
+                if(!isPlayingPleaseWaitAudio) {
+                    setTimeout(() => {
+                        const pleaseWaitAudio = document.getElementById('pleaseWaitAudio');
+                        pleaseWaitAudio.play();
+                    }, 10000); // 15秒 (15000ミリ秒) 後に再生
+                    isPlayingPleaseWaitAudio = true;
+                }
             } else if (data.result === 'unknown') {
                 message.innerHTML = '未知の人物が検出されました。<br>登録してください。';
                 message.classList.add('unknown'); // 未知の人物は黒色
                 actionButtons.classList.remove('hidden'); // アクションボタンを表示
+                audioChoice.classList.add('hidden'); // 音声選択ボタンを非表示
+                isPlayingPleaseWaitAudio = false; 
 
                 knownButton.onclick = () => registerPerson(blob, 'known');
                 dangerButton.onclick = () => registerPerson(blob, 'danger');
@@ -147,6 +187,8 @@
                 message.textContent = '顔を映してください。'; // 顔が認識できない場合のメッセージ
                 message.classList.add('unknown'); // 未知の人物は黒色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
+                audioChoice.classList.add('hidden'); // 音声選択ボタンを非表示
+                isPlayingPleaseWaitAudio = false;
             }
             
         }, 3000); // 3秒ごとにフレームを送信
@@ -166,7 +208,18 @@
             alert(data.message);
             actionButtons.classList.add('hidden'); // アクションボタンを非表示
             message.textContent = ''; // メッセージをクリア
-        }        
+        }
+        
+        // 音声再生ボタンの動作
+        playAudioButton.addEventListener('click', () => {
+            playAbsentAudio();
+            audioChoice.classList.add('hidden'); // 音声選択ボタンを非表示
+        });
+
+        // 音声スキップボタンの動作
+        skipAudioButton.addEventListener('click', () => {
+            audioChoice.classList.add('hidden'); // 音声選択ボタンを非表示
+        });
 
     </script>
 </body>
