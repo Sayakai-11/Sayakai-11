@@ -12,7 +12,7 @@ def is_sunglasses_region(roi, frame, eye_region_top_left):
     _, bw = cv2.threshold(gray, 50, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
     # 二値化した画像を保存
-    cv2.imwrite("binary_image.jpg", bw)
+    #cv2.imwrite("binary_image.jpg", bw)
 
     # 目の領域を横方向に5分割し、中央の白ピクセル割合と外側の黒ピクセル割合を計算
     h, w = bw.shape
@@ -40,10 +40,10 @@ def is_sunglasses_region(roi, frame, eye_region_top_left):
     black_pixel_ratio = (black_pixel_ratio_1 + black_pixel_ratio_5) / 2 if black_pixel_ratio_1 > 0 and black_pixel_ratio_5 > 0 else 0
 
     # 結果の表示（デバッグ用）
-    print(f"真ん中の白ピクセル割合: {white_pixel_ratio:.2f}")
-    print(f"左端の黒ピクセル割合: {black_pixel_ratio_1:.2f}")
-    print(f"右端の黒ピクセル割合: {black_pixel_ratio_5:.2f}")
-    print(f"外側の黒ピクセル割合の平均: {black_pixel_ratio:.2f}")
+    #print(f"真ん中の白ピクセル割合: {white_pixel_ratio:.2f}")
+    #print(f"左端の黒ピクセル割合: {black_pixel_ratio_1:.2f}")
+    #print(f"右端の黒ピクセル割合: {black_pixel_ratio_5:.2f}")
+    #print(f"外側の黒ピクセル割合の平均: {black_pixel_ratio:.2f}")
 
     # 左から2つ分の領域の左上と右下の座標を設定
     segment_1_2_top_left = (eye_region_top_left[0], eye_region_top_left[1])
@@ -61,8 +61,8 @@ def is_sunglasses_region(roi, frame, eye_region_top_left):
     cv2.rectangle(frame, segment_4_5_top_left, segment_4_5_bottom_right, (255, 255, 0), 2)  # 黄色で描画
 
     # 黒と白のピクセル割合を表示
-    print(f"白ピクセル割合: {white_pixel_ratio:.2f}")
-    print(f"黒ピクセル割合: {black_pixel_ratio:.2f}")
+    #print(f"白ピクセル割合: {white_pixel_ratio:.2f}")
+    #print(f"黒ピクセル割合: {black_pixel_ratio:.2f}")
           
     # 白ピクセル割合と黒ピクセル割合が一定以上であればサングラスがあると判定
     if white_pixel_ratio > 0.3 and black_pixel_ratio > 0.7:  # 白ピクセル割合と黒ピクセル割合の条件
@@ -126,13 +126,13 @@ else:
 
         has_sunglasses, frame_with_detections = detect_accessories_from_frame(frame)
         
-        print(f"Sunglasses detected: {'Yes' if has_sunglasses else 'No'}")
+        print(f"サングラスが検出されましたか？: {'はい' if has_sunglasses else 'いいえ'}")
 
-        if has_sunglasses:
-            cv2.imwrite("sunglasses_detected.jpg", frame_with_detections)
-            print("サングラスの検出領域を保存しました: sunglasses_detected.jpg")
-        else:
-            cv2.imwrite("sunglasses_detected.jpg", frame_with_detections)
+        #if has_sunglasses:
+        #    cv2.imwrite("sunglasses_detected.jpg", frame_with_detections)
+        #    print("サングラスの検出領域を保存しました: sunglasses_detected.jpg")
+        #else:
+        #    cv2.imwrite("sunglasses_detected.jpg", frame_with_detections)
 
         if input("Press 'q' and Enter to quit, or just Enter to continue: ") == 'q':
             break
