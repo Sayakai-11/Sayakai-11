@@ -17,7 +17,7 @@ static_danger_folder = './static/images/danger'
 known_encodings = []
 for filename in os.listdir(static_known_folder):
     if filename.endswith('.jpg'):
-        image = face_recognition.load_image_file(os.path.join(static_known_folder, filename))
+        image = face_recognition.load_image_file(os.path.join(known_folder, filename))
         encoding = face_recognition.face_encodings(image)
         if encoding:
             known_encodings.append(encoding[0])
@@ -25,7 +25,7 @@ for filename in os.listdir(static_known_folder):
 danger_encodings = []
 for filename in os.listdir(static_danger_folder):
     if filename.endswith('.jpg'):
-        image = face_recognition.load_image_file(os.path.join(static_danger_folder, filename))
+        image = face_recognition.load_image_file(os.path.join(danger_folder, filename))
         encoding = face_recognition.face_encodings(image)
         if encoding:
             danger_encodings.append(encoding[0])
