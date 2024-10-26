@@ -21,25 +21,42 @@
         }
     </style>
     <script>
-        function editFileName(fileName, element) {
-            let newFileName = prompt("新しいファイル名を入力してください", fileName);
-            if (newFileName) {
-                // AJAXリクエストでPHPに新しいファイル名を送信してリネーム
-                const xhr = new XMLHttpRequest();
-                xhr.open("POST", "rename_image.php", true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        // 成功したら表示名を変更
-                        element.innerText = newFileName;
-                    } else {
-                        alert("ファイル名の変更に失敗しました。");
-                    }
-                };
-                xhr.send("oldName=" + encodeURIComponent(fileName) + "&newName=" + encodeURIComponent(newFileName));
+    function editFileName(fileName, element) {
+    // ファイル名から拡張子を除いたベース部分と拡張子を取得
+    const baseName = fileName.substring(0, fileName.lastIndexOf('.'));
+    const extension = fileName.substring(fileName.lastIndexOf('.'));
+
+    // ベース部分を「danger_20241026_121755」までと、それ以降に分ける
+    const match = baseName.match(/^(danger_\d{8}_\d{6})(-.*)?$/);
+    const mainPart = match ? match[1] : baseName;  // "danger_20241026_121755" の部分
+    let suffix = match && match[2] ? match[2].substring(1) : ""; // "-"以降の追加部分、なければ空文字
+
+    // 入力フィールドに、既存の追加部分を表示または空欄で入力
+    suffix = prompt("ファイル名の後ろに追加する名前を入力してください", suffix);
+    if (suffix !== null) {
+        // 新しいファイル名を生成、ベース名に "-" を追加
+        const newFileName = mainPart + (suffix ? '-' : '') + suffix + extension;
+
+        // AJAXリクエストでPHPに新しいファイル名を送信してリネーム
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "rename_image.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // 成功したら表示名を新しい追加部分で更新
+                element.innerText = suffix;
+            } else {
+                alert("ファイル名の変更に失敗しました。");
             }
-        }
-    </script>
+        };
+        xhr.send("oldName=" + encodeURIComponent(fileName) + "&newName=" + encodeURIComponent(newFileName));
+    }
+}
+
+</script>
+
+
+
 </head>
 <body>
     <header class="header">
