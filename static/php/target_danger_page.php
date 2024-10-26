@@ -11,9 +11,21 @@
             height: auto;
             margin: 10px;
         }
+
+        .gallery-item{
+            display: flex;
+            align-items: center;
+            mergin-bottom: 20px;
+        }
+
+        .gallery-text{
+            mergin-left: 20px;
+        }
     </style>
 </head>
+
 <body>
+    <!-- ヘッダー -->
     <header class="header">
         <div class="container">
             <a href="top_page.php"> <!-- トップページへのリンク -->
@@ -34,17 +46,29 @@
         // 危険人物画像が保存されているフォルダのパス
         $image_folder = "../images/target_danger/";
 
+        //画像が保存されているかのフラグ
+        $has_image = false;
+
         // フォルダ内のファイルを取得
         if (is_dir($image_folder)) {
             if ($handle = opendir($image_folder)) {
                 while (false !== ($file = readdir($handle))) {
                     // 画像ファイルの拡張子をチェック
                     if ($file != '.' && $file != '..' && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
+                        $has_image = true;
+                        echo '<div class="gallery-item">';
                         echo '<img src="' . $image_folder . $file . '" alt="' . $file . '">';
+                        echo '<div class="gallery-text">説明文をここに入力してください。</div>';
+                        echo '</div>';
                     }
                 }
                 closedir($handle);
             }
+        }
+
+        //画像が保存されていなかったら「危険人物が保存されていません」と表示
+        if(!$has_image){
+            echo '<div class="gallery-text">危険人物が保存されていません。</div>';
         }
         ?>
         
