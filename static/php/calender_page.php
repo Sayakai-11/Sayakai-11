@@ -17,7 +17,7 @@
           <ul class="nav">
             <li class="header-hover-color"><a href="suspicious_page.php">危険人物</a></li>
             <li class="header-hover-color"><a href="known_page.php">知人</a></li>
-            <li class="header-hover-color"><a href="calender_page.php">カレンダー</a></li>
+            <li class="header-hover-color active"><a href="calender_page.php">カレンダー</a></li>
             <li class="header-hover-color"><a href="interphone_page.php">インターホン</a></li>
           </ul>
         </div>
