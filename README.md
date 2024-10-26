@@ -44,12 +44,12 @@ project/
 |   |   ├── known_page_index.css        #知人ページのcss
 |   |   ├── interphone_page_index.css   #インターフォンページのcss
 |   |   └── calender_page_index.css     #カレンダーページのcss
-|   └── html/                           # フロントエイドのトップページ
-│       ├── top_page_index.html         # トップページのhtml
-|       ├── suspicious_page_index.html  #不審者ページのhtml
-|       ├── known_page_index.html       #知人ページのhtml
-|       ├── interphone_page_index.html  #インターフォンページのhtml
-|       └── calender_page_index.html    #カレンダーページのhtml 
+|   └── php/                            # フロントエイドのトップページ
+│       ├── top_page_index.php          # トップページのhtml
+|       ├── suspicious_page.php         #不審者ページのhtml
+|       ├── known_page.php              #知人ページのhtml
+|       ├── interphone_page.php         #インターフォンページのhtml
+|       └── calender_page.php           #カレンダーページのhtml 
 ├── known/                              # 既知の人物の画像
 ├── danger/                             # 危険人物の画像
 ├── requirements.txt                    # 依存パッケージのリスト
