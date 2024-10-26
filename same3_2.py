@@ -8,6 +8,8 @@ app = Flask(__name__)
 CORS(app)
 
 # 画像保存フォルダ
+known_folder = './known'
+danger_folder = './danger'
 static_known_folder = './static/images/known'  # フロントエンドに表示するためのフォルダ
 static_danger_folder = './static/images/danger'
 
@@ -85,10 +87,10 @@ def register_face():
     
     # ファイルの保存先を設定
     if person_type == 'known':
-        save_path = os.path.join(static_known_folder, generate_filename("known"))
+        save_path = os.path.join(known_folder, generate_filename("known"))
         known_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(image_file))[0])
     elif person_type == 'danger':
-        save_path = os.path.join(static_danger_folder, generate_filename("danger"))
+        save_path = os.path.join(danger_folder, generate_filename("danger"))
         danger_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(image_file))[0])
 
     # 画像を保存
