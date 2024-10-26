@@ -3,9 +3,8 @@ $image_folder = "../images/known/";
 
 if (isset($_POST['oldName']) && isset($_POST['newName'])) {
     $oldName = basename($_POST['oldName']);
-    $newName = basename($_POST['newName']) . ".jpg"; // jpg拡張子を追加
+    $newName = basename($_POST['newName']);
 
-    // 古いファイルと新しいファイルのパス
     $oldPath = $image_folder . $oldName;
     $newPath = $image_folder . $newName;
 
