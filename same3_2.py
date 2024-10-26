@@ -76,10 +76,10 @@ def register_face():
     
     # ファイルの保存先を設定
     if person_type == 'known':
-        save_path = os.path.join(static_known_folder, f"new_known_{len(known_encodings) + 1}.jpg")
+        save_path = os.path.join(static_known_folder, f"known_{len(known_encodings) + 1}.jpg")
         known_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(image_file))[0])
     elif person_type == 'danger':
-        save_path = os.path.join(static_danger_folder, f"new_danger_{len(danger_encodings) + 1}.jpg")
+        save_path = os.path.join(static_danger_folder, f"danger_{len(danger_encodings) + 1}.jpg")
         danger_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(image_file))[0])
 
     # 画像を保存
