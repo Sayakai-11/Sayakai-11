@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from datetime import datetime
 import os
 import face_recognition
 from flask_cors import CORS
@@ -26,6 +27,14 @@ for filename in os.listdir(static_danger_folder):
         encoding = face_recognition.face_encodings(image)
         if encoding:
             danger_encodings.append(encoding[0])
+
+
+def generate_filename(prefix):
+    """カウント、日付、時間を含むファイル名を生成"""
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    return f"{prefix}_{timestamp}.jpg"
+
+
 
 @app.route('/detect', methods=['POST'])
 def detect_face():
@@ -55,13 +64,13 @@ def detect_face():
 
     # 結果に応じて画像を保存し、そのパスをフロントエンドに返す
     if result == "danger":
-        save_path = os.path.join(static_danger_folder, f"danger_{len(danger_encodings) + 1}.jpg")
+        save_path = os.path.join(static_danger_folder, generate_filename("danger"))
         image_file.seek(0)
         image_file.save(save_path)
         return jsonify({'result': 'danger', 'image_url': save_path.replace('./static', '')})
 
     elif result == "known":
-        save_path = os.path.join(static_known_folder, f"known_{len(known_encodings) + 1}.jpg")
+        save_path = os.path.join(static_known_folder, generate_filename("known"))
         image_file.seek(0)
         image_file.save(save_path)
         return jsonify({'result': 'known', 'image_url': save_path.replace('./static', '')})
@@ -76,10 +85,10 @@ def register_face():
     
     # ファイルの保存先を設定
     if person_type == 'known':
-        save_path = os.path.join(static_known_folder, f"known_{len(known_encodings) + 1}.jpg")
+        save_path = os.path.join(static_known_folder, generate_filename("known"))
         known_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(image_file))[0])
     elif person_type == 'danger':
-        save_path = os.path.join(static_danger_folder, f"danger_{len(danger_encodings) + 1}.jpg")
+        save_path = os.path.join(static_danger_folder, generate_filename("danger"))
         danger_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(image_file))[0])
 
     # 画像を保存
