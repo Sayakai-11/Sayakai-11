@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danger Persons</title>
-    <link rel="stylesheet" href="../css/suspicious_page_index.css">
+    <title>Known Persons</title>
+    <link rel="stylesheet" href="../css/known_page_index.css">
     <style>
         img {
             width: 150px;
@@ -31,8 +31,8 @@
 
     <div id="gallery">
         <?php
-        // 画像が保存されているフォルダのパス
-        $image_folder = "../images/danger/";
+        // 危険人物画像が保存されているフォルダのパス
+        $image_folder = "../images/target_danger/";
 
         // フォルダ内のファイルを取得
         if (is_dir($image_folder)) {
@@ -47,6 +47,7 @@
             }
         }
         ?>
+        
     </div>
 </body>
 </html>
