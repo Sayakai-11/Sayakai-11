@@ -10,8 +10,53 @@
             width: 150px;
             height: auto;
             margin: 10px;
+            cursor: pointer;
+        }
+        #confirmation {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 2px solid black;
+            text-align: center;
+        }
+        #confirmation button {
+            margin: 5px;
         }
     </style>
+    <script>
+        function showConfirmation(fileName) {
+            const confirmation = document.getElementById('confirmation');
+            confirmation.style.display = 'block';
+            confirmation.setAttribute('data-file', fileName);
+        }
+
+        function addToDangerList() {
+            const confirmation = document.getElementById('confirmation');
+            const fileName = confirmation.getAttribute('data-file');
+
+            // AJAXリクエストでPHPにファイル名を送信してコピーを作成
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "add_to_danger.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    alert("危険人物に追加されました。");
+                } else {
+                    alert("追加に失敗しました。");
+                }
+                confirmation.style.display = 'none';
+            };
+            xhr.send("fileName=" + encodeURIComponent(fileName));
+        }
+
+        function closeConfirmation() {
+            document.getElementById('confirmation').style.display = 'none';
+        }
+    </script>
 </head>
 <body>
     <header class="header">
@@ -31,22 +76,25 @@
 
     <div id="gallery">
         <?php
-        // 画像が保存されているフォルダのパス
         $image_folder = "../images/danger/";
-
-        // フォルダ内のファイルを取得
         if (is_dir($image_folder)) {
             if ($handle = opendir($image_folder)) {
                 while (false !== ($file = readdir($handle))) {
-                    // 画像ファイルの拡張子をチェック
                     if ($file != '.' && $file != '..' && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
-                        echo '<img src="' . $image_folder . $file . '" alt="' . $file . '">';
+                        echo '<img src="' . $image_folder . $file . '" alt="' . $file . '" onclick="showConfirmation(\'' . $file . '\')">';
                     }
                 }
                 closedir($handle);
             }
         }
         ?>
+    </div>
+
+    <!-- 確認タブ -->
+    <div id="confirmation">
+        <p>この人物を危険人物に追加しますか？</p>
+        <button onclick="addToDangerList()">追加</button>
+        <button onclick="closeConfirmation()">キャンセル</button>
     </div>
 </body>
 </html>
