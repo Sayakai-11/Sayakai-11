@@ -69,7 +69,7 @@
             <li class="header-hover-color"><a href="known_page.php">知人</a></li>
             <li class="header-hover-color active"><a href="calender_page.php">カレンダー</a></li>
             <li class="header-hover-color"><a href="interphone_page.php">インターホン</a></li>
-            <li class="header-hover-color"><a href="danger_target_page.php">危険人物リスト</a></li>          </ul>
+            <li class="header-hover-color"><a href="target_danger_page.php">危険人物リスト</a></li>          </ul>
         </div>
     </header>
     <h1>既知人物リスト</h1>
