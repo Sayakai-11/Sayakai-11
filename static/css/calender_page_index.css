@@ -93,4 +93,26 @@ body {
       display: table;
   }
 
+  .calendar-title {
+    position: fixed;
+    position: relative; /* 今の位置を基準 */
+    top: 20px; /* 上から移動 */
+    left: 70px; /* 左から移動 */
+  }
 
+  .calendar-container {
+    position: fixed;
+    position: relative; /* 今の位置を基準 */
+    top: 20px; /* 上から移動 */
+    right: 370px; /* 右から移動 */
+    max-width: 500px !important; /* 最大幅を設定（必要に応じて調整） */
+    padding: 30px !important; /* 上下の余白を追加（必要に応じて調整） */
+    background-color: rgb(248, 249, 237) !important;
+  }
+
+  .picture-title {
+    position: fixed;
+    position: relative; /* 今の位置を基準 */
+    top: -500px; /* 上から移動 */
+    left: 750px; /* 左から移動 */
+  }
