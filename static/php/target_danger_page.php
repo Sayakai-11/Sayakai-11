@@ -76,7 +76,7 @@
 
         if ($folder_updated) {
             // Pythonスクリプト
-            $command = "python python3 ../../../danger.py";
+            $command = "python C:\MAMP\htdocs\JPHACKS24-2\danger.py";
             
             // 実行とエラーチェック
             exec($command, $output, $return_var);

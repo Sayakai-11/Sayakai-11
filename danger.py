@@ -14,7 +14,7 @@ params = urllib.parse.urlencode({
 })
 
 conn = http.client.HTTPSConnection('jphacks24-chocopa.cognitiveservices.azure.com')
-image_folder = './static/images/target_danger'
+image_folder = 'C:\MAMP\htdocs\JPHACKS24-2\static\images\danger_target'
 output_data = []
 
 print("開始")
