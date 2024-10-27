@@ -73,6 +73,10 @@
         </div>
     </header>
     
+    <p class="description-text">
+        <span class="breadcrumb-top">Top</span> > 不審者
+    </p>
+    
     <div class="suspicious-container">
         <div class="suspicious-title">
             <h1>不審者</h1>

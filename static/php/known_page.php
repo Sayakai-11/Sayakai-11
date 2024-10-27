@@ -74,6 +74,9 @@
     </header>
 
     <div class="known-container">
+        <p class="description-text-known">
+            <span class="breadcrumb-top">Top</span> > 知人
+        </p>
         <div class="known-title">
             <h1>知人</h1>
         </div>
