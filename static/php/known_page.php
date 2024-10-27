@@ -32,7 +32,7 @@
     let suffix = match && match[2] ? match[2].substring(1) : ""; // "-"以降の追加部分、なければ空文字
 
     // 入力フィールドに、既存の追加部分を表示または空欄で入力
-    suffix = prompt("ファイル名の後ろに追加する名前を入力してください", suffix);
+    suffix = prompt("名前を入力してください", suffix);
     if (suffix !== null) {
         // 新しいファイル名を生成、ベース名に "-" を追加
         const newFileName = mainPart + (suffix ? '-' : '') + suffix + extension;
@@ -72,27 +72,32 @@
             <li class="header-hover-color"><a href="target_danger_page.php">危険人物リスト</a></li>          </ul>
         </div>
     </header>
-    <h1>知人</h1>
 
-    <div id="gallery">
-        <?php
-        $image_folder = "../images/known/";
-        if (is_dir($image_folder)) {
-            if ($handle = opendir($image_folder)) {
-                while (false !== ($file = readdir($handle))) {
-                    if ($file != '.' && $file != '..' && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
-                        // ファイル名から拡張子を除去
-                        $fileNameWithoutExt = pathinfo($file, PATHINFO_FILENAME);
-                        echo '<div class="image-container">';
-                        echo '<img src="' . $image_folder . $file . '" alt="' . $file . '" onclick="editFileName(\'' . $file . '\', this.nextElementSibling)">';
-                        echo '<p class="name_style">' . $fileNameWithoutExt . '</p>';
-                        echo '</div>';
+    <div class="known-container">
+        <div class="known-title">
+            <h1>知人</h1>
+        </div>
+
+        <div id="gallery">
+            <?php
+            $image_folder = "../images/known/";
+            if (is_dir($image_folder)) {
+                if ($handle = opendir($image_folder)) {
+                    while (false !== ($file = readdir($handle))) {
+                        if ($file != '.' && $file != '..' && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
+                            // ファイル名から拡張子を除去
+                            $fileNameWithoutExt = pathinfo($file, PATHINFO_FILENAME);
+                            echo '<div class="image-container">';
+                            echo '<img src="' . $image_folder . $file . '" alt="' . $file . '" onclick="editFileName(\'' . $file . '\', this.nextElementSibling)">';
+                            echo '<p class="name_style">' . $fileNameWithoutExt . '</p>';
+                            echo '</div>';
+                        }
                     }
+                    closedir($handle);
                 }
-                closedir($handle);
             }
-        }
-        ?>
+            ?>
+        </div>
     </div>
 </body>
 </html>
