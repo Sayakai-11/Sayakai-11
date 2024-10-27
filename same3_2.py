@@ -11,10 +11,10 @@ CORS(app)
 # 画像保存フォルダ
 known_folder = './known'
 danger_folder = './danger'
-target_danger_folder = './target_danger'
+danger_target_folder = './danger_target'
 static_known_folder = './static/images/known'  # フロントエンドに表示するためのフォルダ
 static_danger_folder = './static/images/danger'
-static_target_danger_folder = './static/images/target_danger'
+static_danger_target_folder = './static/images/danger_target'
 
 # knownフォルダとdangerフォルダの画像をエンコード
 known_encodings = []
@@ -34,9 +34,9 @@ for filename in os.listdir(static_danger_folder):
             danger_encodings.append(encoding[0])
             
 target_danger_encodings = []
-for filename in os.listdir(static_target_danger_folder):
+for filename in os.listdir(static_danger_target_folder):
     if filename.endswith('.jpg'):
-        image = face_recognition.load_image_file(os.path.join(static_target_danger_folder, filename))
+        image = face_recognition.load_image_file(os.path.join(static_danger_target_folder, filename))
         encoding = face_recognition.face_encodings(image)
         if encoding:
             target_danger_encodings.append(encoding[0])
@@ -130,10 +130,10 @@ def detect_face():
         return jsonify({'result': 'known', 'image_url': f"/static/images/known/{os.path.basename(save_path)}"})
     
     elif result == "target_danger":
-        save_path = os.path.join(target_danger_folder, generate_filename("target_danger"))
+        save_path = os.path.join(danger_target_folder, generate_filename("target_danger"))
         image_file.seek(0)
         image_file.save(save_path)
-        return jsonify({'result': 'target_danger', 'image_url': f"/static/images/target_danger/{os.path.basename(save_path)}"})
+        return jsonify({'result': 'target_danger', 'image_url': f"/static/images/danger_target/{os.path.basename(save_path)}"})
     
     return jsonify({'result': 'unknown'})
 
