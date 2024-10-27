@@ -65,11 +65,11 @@
                 <img src="../../logo3.png" alt="Logo" class="logo"> <!-- 一つ上の階層から画像を読み込む -->
             </a>
           <ul class="nav">
-            <li class="header-hover-color"><a href="suspicious_page.php">危険人物</a></li>
-            <li class="header-hover-color active"><a href="known_page.php">知人</a></li>
-            <li class="header-hover-color"><a href="calender_page.php">カレンダー</a></li>
+          <li class="header-hover-color"><a href="suspicious_page.php">不審者</a></li>
+            <li class="header-hover-color"><a href="known_page.php">知人</a></li>
+            <li class="header-hover-color active"><a href="calender_page.php">カレンダー</a></li>
             <li class="header-hover-color"><a href="interphone_page.php">インターホン</a></li>
-          </ul>
+            <li class="header-hover-color"><a href="danger_target_page.php">危険人物リスト</a></li>          </ul>
         </div>
     </header>
     <h1>既知人物リスト</h1>
