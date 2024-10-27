@@ -55,7 +55,7 @@
             text-align: right; /* ボタンを右側に配置 */        
         }
         .state_wrap .button{
-            color:  #606060; /* 文字色 */
+            color:  #f09c8a; /* 文字色 */
             font-size: 30px; /* フォントサイズ */
             padding: 5px 20px; /* パディングを増やしてボタンを大きくする */
             border: none;
@@ -63,7 +63,7 @@
             text-decoration: none; /* リンクの下線を削除 */
         }
         .state_wrap .button:hover {
-            background-color: #f09c8a; /* ホバー時の色 */
+            background-color: #606060; /* ホバー時の色 */
         }    
 
     </style>
