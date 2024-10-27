@@ -17,8 +17,6 @@ conn = http.client.HTTPSConnection('jphacks24-chocopa.cognitiveservices.azure.co
 image_folder = 'C:\MAMP\htdocs\JPHACKS24-2\static\images\danger_target'
 output_data = []
 
-print("開始")
-
 for file_name in os.listdir(image_folder):
     #print(f"処理中のファイル: {file_name}")
     file_path = os.path.join(image_folder, file_name)
