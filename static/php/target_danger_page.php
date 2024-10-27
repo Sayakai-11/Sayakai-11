@@ -46,7 +46,6 @@
         <?php
         // 危険人物画像が保存されているフォルダのパス
         $image_folder = "../images/target_danger/";
-        
 
         //画像が保存されているかのフラグ
         $has_image = false;
