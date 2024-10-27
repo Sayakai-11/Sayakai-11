@@ -31,13 +31,13 @@
             <a href="top_page.php"> <!-- トップページへのリンク -->
                 <img src="../../logo3.png" alt="Logo" class="logo"> <!-- 一つ上の階層から画像を読み込む -->
             </a>
-          <ul class="nav">
-          <li class="header-hover-color"><a href="suspicious_page.php">不審者</a></li>
-            <li class="header-hover-color"><a href="known_page.php">知人</a></li>
-            <li class="header-hover-color"><a href="calender_page.php">カレンダー</a></li>
-            <li class="header-hover-color"><a href="interphone_page.php">インターホン</a></li>
-            <li class="header-hover-color"><a href="target_danger_page.php">危険人物リスト</a></li>          
-        </ul>
+            <ul class="nav">
+                <li class="header-hover-color"><a href="suspicious_page.php">不審者</a></li>
+                <li class="header-hover-color"><a href="known_page.php">知人</a></li>
+                <li class="header-hover-color"><a href="calender_page.php">カレンダー</a></li>
+                <li class="header-hover-color"><a href="interphone_page.php">インターホン</a></li>
+                <li class="header-hover-color active"><a href="target_danger_page.php">危険人物リスト</a></li>
+            </ul>
         </div>
     </header>
     <h1>危険人物リスト</h1>
@@ -47,9 +47,54 @@
         // target_danger.pyの実行タイミング管理用ファイル
         $timestamp_file = "../images/target_danger/timestamp.txt";
         $image_folder = "../images/target_danger/";
-        
 
-        //画像が保存されているかのフラグ
+        // 前回実行時のタイムスタンプを読み込み
+        $latest_timestamp = 0;
+        if (file_exists($timestamp_file)) {
+            $latest_timestamp = file_get_contents($timestamp_file);
+        }
+
+        // フォルダ内の画像ファイルをチェックし、最新のファイル更新日時を取得
+        $folder_updated = false;
+        if (is_dir($image_folder)) {
+            if ($handle = opendir($image_folder)) {
+                while (false !== ($file = readdir($handle))) {
+                    if (preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
+                        $file_path = $image_folder . $file;
+                        $file_timestamp = filemtime($file_path);
+                        
+                        // もし画像が新しいなら、更新フラグを立てる
+                        if ($file_timestamp > $latest_timestamp) {
+                            $folder_updated = true;
+                            $latest_timestamp = max($latest_timestamp, $file_timestamp);
+                        }
+                    }
+                }
+                closedir($handle);
+            }
+        }
+
+        if ($folder_updated) {
+            // Pythonスクリプト
+            $command = "python ../../danger.py";
+            
+            // 実行とエラーチェック
+            exec($command, $output, $return_var);
+            if ($return_var !== 0) {
+                echo "Pythonスクリプトの実行に失敗しました。エラー: " . implode("\n", $output);
+            } else {
+                // 成功時にタイムスタンプを更新
+                file_put_contents($timestamp_file, $latest_timestamp);
+                
+                // スクリプトの出力結果を表示
+                foreach ($output as $line) {
+                    echo "<p>スクリプト出力: " . htmlspecialchars($line) . "</p>";
+                }
+            }
+        }
+
+
+        // 危険人物画像が保存されているかのフラグ
         $has_image = false;
 
         // フォルダ内のファイルを取得して表示
@@ -90,3 +135,4 @@
     </div>
 </body>
 </html>
+
