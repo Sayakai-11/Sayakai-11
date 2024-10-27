@@ -72,22 +72,34 @@
             <li class="header-hover-color"><a href="target_danger_page.php">危険人物リスト</a></li>          </ul>
         </div>
     </header>
-    <h1">不審者</h1>
+    
+    <div class="suspicious-container">
+        <div class="suspicious-title">
+            <h1>不審者</h1>
+        </div>
 
-    <div id="gallery">
-        <?php
-        $image_folder = "../images/danger/";
-        if (is_dir($image_folder)) {
-            if ($handle = opendir($image_folder)) {
-                while (false !== ($file = readdir($handle))) {
-                    if ($file != '.' && $file != '..' && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
-                        echo '<img src="' . $image_folder . $file . '" alt="' . $file . '" onclick="showConfirmation(\'' . $file . '\')">';
+        <div id="gallery">
+            <?php
+            $image_folder = "../images/danger/";
+            if (is_dir($image_folder)) {
+                if ($handle = opendir($image_folder)) {
+                    while (false !== ($file = readdir($handle))) {
+                        if ($file != '.' && $file != '..' && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
+                            echo '<img src="' . $image_folder . $file . '" alt="' . $file . '" onclick="showConfirmation(\'' . $file . '\')">';
+                        }
                     }
+                    closedir($handle);
                 }
-                closedir($handle);
             }
-        }
-        ?>
+            ?>
+        </div>
+
+        <!-- 確認タブ -->
+        <div id="confirmation">
+            <p>この人物を危険人物に追加しますか？</p>
+            <button onclick="addToDangerList()">追加</button>
+            <button onclick="closeConfirmation()">キャンセル</button>
+        </div>
     </div>
 
     <!-- 確認タブ -->

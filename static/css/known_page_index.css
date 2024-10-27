@@ -94,3 +94,9 @@ body {
       display: table;
   }
 
+  .known-container{
+    position: fixed;
+    position: relative; /* 今の位置を基準 */
+    top: 20px; /* 上から移動 */
+    left: 70px; /* 左から移動 */
+  }
