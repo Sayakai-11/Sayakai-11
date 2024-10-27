@@ -106,6 +106,7 @@
         <button id="play-audio">音声を再生</button>
     </div>
 
+    <audio id="interphoneSound" src="../audio/interphone_sound.mp3"></audio>
     <audio id="absentAudio" src="../audio/rusu.mp3"></audio>
     <audio id="pleaseWaitAudio" src="../audio/please_wait.mp3"></audio> <!--手が離せないときに流す音声-->
 
@@ -118,8 +119,8 @@
         const dangerButton = document.getElementById('danger');
         const audioChoice = document.getElementById('audio-choice');
         const playAudioButton = document.getElementById('play-audio');
-        const skipAudioButton = document.getElementById('skip-audio');
         const absentAudio = document.getElementById('absentAudio');
+        const interphoneSound = document.getElementById('interphoneSound');
 
         // カメラの映像を取得して表示
         navigator.mediaDevices.getUserMedia({ video: true })
@@ -132,6 +133,7 @@
         }
 
         // 音声が再生中かどうかを示すフラグ
+        let isPlayingInterphoneSound = false;
         let isPlayingPleaseWaitAudio = false;
 
             // フレームを定期的にAPIに送信して結果を取得
@@ -161,6 +163,13 @@
                 message.textContent = '危険です！';
                 message.classList.add('target_danger'); // 危険な場合は赤色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
+
+                // ピンポン音を鳴らす
+                if(!isPlayingInterphoneSound) {
+                    interphoneSound.play();
+                    isPlayingInterphoneSound = true;
+                }
+
                 audioChoice.classList.remove('hidden'); // 音声選択ボタンを表示
                 isPlayingPleaseWaitAudio = false; //音声が流れたかを記録するフラグ
             } else if (data.result === 'known') {
@@ -169,18 +178,31 @@
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
                 audioChoice.classList.add('hidden'); // 音声選択ボタンを非表示
 
-                 // 15秒後に音声を再生
+                // ピンポン音を鳴らす
+                if(!isPlayingInterphoneSound) {
+                    interphoneSound.play();
+                    isPlayingInterphoneSound = true;
+                }
+
+                 // 10秒後に音声を再生
                 if(!isPlayingPleaseWaitAudio) {
                     setTimeout(() => {
                         const pleaseWaitAudio = document.getElementById('pleaseWaitAudio');
                         pleaseWaitAudio.play();
-                    }, 10000); // 15秒 (15000ミリ秒) 後に再生
+                    }, 10000); // 10秒 (10000ミリ秒) 後に再生
                     isPlayingPleaseWaitAudio = true;
                 }
             } else if (data.result === 'unknown') {
                 message.innerHTML = '未知の人物が検出されました。<br>登録してください。';
                 message.classList.add('unknown'); // 未知の人物は黒色
                 actionButtons.classList.remove('hidden'); // アクションボタンを表示
+
+                // ピンポン音を鳴らす
+                if(!isPlayingInterphoneSound) {
+                    interphoneSound.play();
+                    isPlayingInterphoneSound = true;
+                }
+
                 audioChoice.classList.add('hidden'); // 音声選択ボタンを非表示
                 isPlayingPleaseWaitAudio = false; 
 
@@ -190,14 +212,22 @@
                 message.textContent = '不審者です。';
                 message.classList.add('danger'); 
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
+
+                // ピンポン音を鳴らす
+                if(!isPlayingInterphoneSound) {
+                    interphoneSound.play();
+                    isPlayingInterphoneSound = true;
+                }
+
                 audioChoice.classList.remove('hidden'); // 音声選択ボタンを表示
                 isPlayingPleaseWaitAudio = false; //音声が流れたかを記録するフラグ
-            }　else {
+            } else {
                 message.textContent = '顔を映してください。'; // 顔が認識できない場合のメッセージ
                 message.classList.add('unknown'); // 未知の人物は黒色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
                 audioChoice.classList.add('hidden'); // 音声選択ボタンを非表示
                 isPlayingPleaseWaitAudio = false;
+                isPlayingInterphoneSound = false;
             }
             
         }, 3000); // 3秒ごとにフレームを送信
@@ -222,11 +252,6 @@
         // 音声再生ボタンの動作
         playAudioButton.addEventListener('click', () => {
             playAbsentAudio();
-            audioChoice.classList.add('hidden'); // 音声選択ボタンを非表示
-        });
-
-        // 音声スキップボタンの動作
-        skipAudioButton.addEventListener('click', () => {
             audioChoice.classList.add('hidden'); // 音声選択ボタンを非表示
         });
 
