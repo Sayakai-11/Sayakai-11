@@ -23,13 +23,16 @@
             border-radius: 10px;
         }
         /* メッセージのクラスによる文字色の設定 */
-        .danger {
-            color: rgb(255, 0, 0);
+        .target_danger {
+            color: red;
         }
         .known {
             color: green;
         }
         .unknown {
+            color: black;
+        }
+        .danger {
             color: black;
         }
         #action-buttons {
@@ -94,6 +97,7 @@
         <button id="danger">dangerとして登録</button>
     </div>
 
+    <audio id="interphoneSound" src="../audio/interphone_sound.mp3"></audio>
     <audio id="absentAudio" src="../audio/rusu.mp3"></audio>
 
 
@@ -105,8 +109,8 @@
         const dangerButton = document.getElementById('danger');
         const audioChoice = document.getElementById('audio-choice');
         const playAudioButton = document.getElementById('play-audio');
-        const skipAudioButton = document.getElementById('skip-audio');
         const absentAudio = document.getElementById('absentAudio');
+        const interphoneSound = document.getElementById('interphoneSound');
 
         // カメラの映像を取得して表示
         navigator.mediaDevices.getUserMedia({ video: true })
@@ -119,6 +123,7 @@
         }
 
         // 音声が再生中かどうかを示すフラグ
+        let isPlayingInterphoneSound = false;
         let isPlayingPleaseWaitAudio = false;
 
             // フレームを定期的にAPIに送信して結果を取得
@@ -144,10 +149,17 @@
             // クラスをリセット
             message.classList.remove('danger', 'known', 'unknown'); 
 
-            if (data.result === 'danger') {
+            if (data.result === 'target_danger') {
                 message.textContent = '危険です！';
-                message.classList.add('danger'); // 危険な場合は赤色
+                message.classList.add('target_danger'); // 危険な場合は赤色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
+
+                // ピンポン音を鳴らす
+                if(!isPlayingInterphoneSound) {
+                    interphoneSound.play();
+                    isPlayingInterphoneSound = true;
+                }
+
                 // 3秒後に音声を再生
                 if(!isPlayingPleaseWaitAudio) {
                     setTimeout(() => {
@@ -160,6 +172,13 @@
                 message.textContent = '既知の人物です';
                 message.classList.add('known'); // 既知の人物は緑色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
+
+                // ピンポン音を鳴らす
+                if(!isPlayingInterphoneSound) {
+                    interphoneSound.play();
+                    isPlayingInterphoneSound = true;
+                }
+
                 // 3秒後に音声を再生
                 if(!isPlayingPleaseWaitAudio) {
                     setTimeout(() => {
@@ -169,9 +188,16 @@
                     isPlayingPleaseWaitAudio = true;
                 }
             } else if (data.result === 'unknown') {
-                message.innerHTML = '未知の人物が検出されました。<br>登録してください。';
+                message.innerHTML = '未知の人物が検出されました。';
                 message.classList.add('unknown'); // 未知の人物は黒色
                 actionButtons.classList.add('hidden'); // アクションボタンを表示
+
+                // ピンポン音を鳴らす
+                if(!isPlayingInterphoneSound) {
+                    interphoneSound.play();
+                    isPlayingInterphoneSound = true;
+                }
+
                 // 3秒後に音声を再生
                 if(!isPlayingPleaseWaitAudio) {
                     setTimeout(() => {
@@ -180,12 +206,30 @@
                     }, 3000); // 3秒 (3000ミリ秒) 後に再生
                     isPlayingPleaseWaitAudio = true;
                 }
+            }else if (data.result === 'danger') {
+                message.textContent = '不審者です。';
+                message.classList.add('danger'); 
 
+                // ピンポン音を鳴らす
+                if(!isPlayingInterphoneSound) {
+                    interphoneSound.play();
+                    isPlayingInterphoneSound = true;
+                }
+
+                // 3秒後に音声を再生
+                if(!isPlayingPleaseWaitAudio) {
+                    setTimeout(() => {
+                        const pleaseWaitAudio = document.getElementById('absentAudio');
+                        pleaseWaitAudio.play();
+                    }, 3000); // 3秒 (3000ミリ秒) 後に再生
+                    isPlayingPleaseWaitAudio = true;
+                }
             } else {
                 message.textContent = '顔を映してください。'; // 顔が認識できない場合のメッセージ
                 message.classList.add('unknown'); // 未知の人物は黒色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
                 isPlayingPleaseWaitAudio = false;
+                isPlayingInterphoneSound = false;
             }
             
         }, 3000); // 3秒ごとにフレームを送信
