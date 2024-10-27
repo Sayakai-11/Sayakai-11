@@ -34,6 +34,9 @@
             </ul>
         </div>
     </header>
+    <p class="description-text">
+        <span class="breadcrumb-top">Top</span> > カレンダー
+    </p>
     <h1 class="calendar-title">カレンダー</h1>
     <div class="calendar-container">
         <div id="calendar"></div>

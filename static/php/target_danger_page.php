@@ -40,98 +40,105 @@
             </ul>
         </div>
     </header>
-    <h1>危険人物リスト</h1>
+    <p class="description-text">
+        <span class="breadcrumb-top">Top</span> > 危険人物リスト
+    </p>
+    <div class="danger-container">
+        <div class="danger-title">
+            <h1>危険人物リスト</h1>
+        </div>
 
-    <div id="gallery">
-        <?php
-        // target_danger.pyの実行タイミング管理用ファイル
-        $timestamp_file = "../images/danger_target/timestamp.txt";
-        $image_folder = "../images/danger_target/";
+        <div id="gallery">
+            <?php
+            // target_danger.pyの実行タイミング管理用ファイル
+            $timestamp_file = "../images/danger_target/timestamp.txt";
+            $image_folder = "../images/danger_target/";
 
-        // 前回実行時のタイムスタンプを読み込み
-        $latest_timestamp = 0;
-        if (file_exists($timestamp_file)) {
-            $latest_timestamp = file_get_contents($timestamp_file);
-        }
+            // 前回実行時のタイムスタンプを読み込み
+            $latest_timestamp = 0;
+            if (file_exists($timestamp_file)) {
+                $latest_timestamp = file_get_contents($timestamp_file);
+            }
 
-        // フォルダ内の画像ファイルをチェックし、最新のファイル更新日時を取得
-        $folder_updated = false;
-        if (is_dir($image_folder)) {
-            if ($handle = opendir($image_folder)) {
-                while (false !== ($file = readdir($handle))) {
-                    if (preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
-                        $file_path = $image_folder . $file;
-                        $file_timestamp = filemtime($file_path);
-                        
-                        // もし画像が新しいなら、更新フラグを立てる
-                        if ($file_timestamp > $latest_timestamp) {
-                            $folder_updated = true;
-                            $latest_timestamp = max($latest_timestamp, $file_timestamp);
+            // フォルダ内の画像ファイルをチェックし、最新のファイル更新日時を取得
+            $folder_updated = false;
+            if (is_dir($image_folder)) {
+                if ($handle = opendir($image_folder)) {
+                    while (false !== ($file = readdir($handle))) {
+                        if (preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
+                            $file_path = $image_folder . $file;
+                            $file_timestamp = filemtime($file_path);
+                            
+                            // もし画像が新しいなら、更新フラグを立てる
+                            if ($file_timestamp > $latest_timestamp) {
+                                $folder_updated = true;
+                                $latest_timestamp = max($latest_timestamp, $file_timestamp);
+                            }
                         }
                     }
+                    closedir($handle);
                 }
-                closedir($handle);
             }
-        }
 
-        if ($folder_updated) {
-            // Pythonスクリプト
-            $command = "python C:\MAMP\htdocs\JPHACKS24-2\danger.py";
-            
-            // 実行とエラーチェック
-            exec($command, $output, $return_var);
-            if ($return_var !== 0) {
-                echo "Pythonスクリプトの実行に失敗しました。エラー: " . implode("\n", $output);
-            } else {
-                // 成功時にタイムスタンプを更新
-                file_put_contents($timestamp_file, $latest_timestamp);
+            if ($folder_updated) {
+                // Pythonスクリプト
+                $command = "python C:\MAMP\htdocs\JPHACKS24-2\danger.py";
                 
-                // スクリプトの出力結果を表示
-                foreach ($output as $line) {
-                    echo "<p>スクリプト出力: " . htmlspecialchars($line) . "</p>";
-                }
-            }
-        }
-
-
-        // 危険人物画像が保存されているかのフラグ
-        $has_image = false;
-
-        // フォルダ内のファイルを取得して表示
-        if (is_dir($image_folder)) {
-            if ($handle = opendir($image_folder)) {
-                while (false !== ($file = readdir($handle))) {
-                    if ($file != '.' && $file != '..' && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
-                        $has_image = true;
-
-                        // 画像ファイル名から拡張子を除いたファイル名を取得
-                        $base_name = pathinfo($file, PATHINFO_FILENAME);
-                        // 対応するテキストファイルのパス
-                        $text_file_path = $image_folder . $base_name . '.txt';
-
-                        // テキストファイルの内容を取得
-                        $text_content = '';
-                        if (file_exists($text_file_path)) {
-                            $text_content = file_get_contents($text_file_path);
-                        } else {
-                            $text_content = '説明文が見つかりません。'; // ファイルが見つからない場合
-                        }
-
-                        echo '<div class="gallery-item">';
-                        echo '<img src="' . $image_folder . $file . '" alt="' . $file . '">';
-                        echo '<div class="gallery-text">' . htmlspecialchars($text_content) . '</div>';
-                        echo '</div>';
+                // 実行とエラーチェック
+                exec($command, $output, $return_var);
+                if ($return_var !== 0) {
+                    echo "Pythonスクリプトの実行に失敗しました。エラー: " . implode("\n", $output);
+                } else {
+                    // 成功時にタイムスタンプを更新
+                    file_put_contents($timestamp_file, $latest_timestamp);
+                    
+                    // スクリプトの出力結果を表示
+                    foreach ($output as $line) {
+                        echo "<p>スクリプト出力: " . htmlspecialchars($line) . "</p>";
                     }
                 }
-                closedir($handle);
             }
-        }
 
-        // 画像が保存されていなかったら「危険人物が保存されていません」と表示
-        if (!$has_image) {
-            echo '<div class="gallery-text">危険人物が保存されていません。</div>';
-        }
-        ?>
+
+            // 危険人物画像が保存されているかのフラグ
+            $has_image = false;
+
+            // フォルダ内のファイルを取得して表示
+            if (is_dir($image_folder)) {
+                if ($handle = opendir($image_folder)) {
+                    while (false !== ($file = readdir($handle))) {
+                        if ($file != '.' && $file != '..' && preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
+                            $has_image = true;
+
+                            // 画像ファイル名から拡張子を除いたファイル名を取得
+                            $base_name = pathinfo($file, PATHINFO_FILENAME);
+                            // 対応するテキストファイルのパス
+                            $text_file_path = $image_folder . $base_name . '.txt';
+
+                            // テキストファイルの内容を取得
+                            $text_content = '';
+                            if (file_exists($text_file_path)) {
+                                $text_content = file_get_contents($text_file_path);
+                            } else {
+                                $text_content = '説明文が見つかりません。'; // ファイルが見つからない場合
+                            }
+
+                            echo '<div class="gallery-item">';
+                            echo '<img src="' . $image_folder . $file . '" alt="' . $file . '">';
+                            echo '<div class="gallery-text">' . htmlspecialchars($text_content) . '</div>';
+                            echo '</div>';
+                        }
+                    }
+                    closedir($handle);
+                }
+            }
+
+            // 画像が保存されていなかったら「危険人物が保存されていません」と表示
+            if (!$has_image) {
+                echo '<div class="gallery-text">危険人物が保存されていません。</div>';
+            }
+            ?>
+        </div>
     </div>
 </body>
 </html>
