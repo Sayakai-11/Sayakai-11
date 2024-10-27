@@ -22,13 +22,16 @@
             border-radius: 10px;
         }
         /* メッセージのクラスによる文字色の設定 */
-        .danger {
-            color: rgb(255, 0, 0);
+        .target_danger {
+            color: red;
         }
         .known {
             color: green;
         }
         .unknown {
+            color: black;
+        }
+        .danger {
             color: black;
         }
         #action-buttons {
@@ -76,8 +79,8 @@
           <ul class="nav">
           <li class="header-hover-color"><a href="suspicious_page.php">不審者</a></li>
             <li class="header-hover-color"><a href="known_page.php">知人</a></li>
-            <li class="header-hover-color active"><a href="calender_page.php">カレンダー</a></li>
-            <li class="header-hover-color"><a href="interphone_page.php">インターホン</a></li>
+            <li class="header-hover-color"><a href="calender_page.php">カレンダー</a></li>
+            <li class="header-hover-color active"><a href="interphone_page.php">インターホン</a></li>
             <li class="header-hover-color"><a href="target_danger_page.php">危険人物リスト</a></li>          </ul>
         </div>
     </header>
@@ -152,11 +155,11 @@
             message.classList.remove('hidden');
 
             // クラスをリセット
-            message.classList.remove('danger', 'known', 'unknown'); 
+            message.classList.remove('target_danger', 'known', 'unknown', 'danger'); 
 
-            if (data.result === 'danger') {
+            if (data.result === 'target_danger') {
                 message.textContent = '危険です！';
-                message.classList.add('danger'); // 危険な場合は赤色
+                message.classList.add('target_danger'); // 危険な場合は赤色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
                 audioChoice.classList.remove('hidden'); // 音声選択ボタンを表示
                 isPlayingPleaseWaitAudio = false; //音声が流れたかを記録するフラグ
@@ -183,7 +186,13 @@
 
                 knownButton.onclick = () => registerPerson(blob, 'known');
                 dangerButton.onclick = () => registerPerson(blob, 'danger');
-            } else {
+            } else if (data.result === 'danger') {
+                message.textContent = '不審者です。';
+                message.classList.add('danger'); 
+                actionButtons.classList.add('hidden'); // アクションボタンを非表示
+                audioChoice.classList.remove('hidden'); // 音声選択ボタンを表示
+                isPlayingPleaseWaitAudio = false; //音声が流れたかを記録するフラグ
+            }　else {
                 message.textContent = '顔を映してください。'; // 顔が認識できない場合のメッセージ
                 message.classList.add('unknown'); // 未知の人物は黒色
                 actionButtons.classList.add('hidden'); // アクションボタンを非表示
