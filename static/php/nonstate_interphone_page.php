@@ -48,7 +48,7 @@
         .state_wrap .button{
             color:  #f09c8a; /* 文字色 */
             font-size: 30px; /* フォントサイズ */
-            padding: 5px 20px; /* パディングを増やしてボタンを大きくする */
+            padding: 0px 20px; /* パディングを増やしてボタンを大きくする */
             border: none;
             border-radius: 8px; /* ボタンの角を丸める */
             text-decoration: none; /* リンクの下線を削除 */
