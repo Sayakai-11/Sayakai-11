@@ -72,7 +72,8 @@
             <li class="header-hover-color"><a href="target_danger_page.php">危険人物リスト</a></li>          </ul>
         </div>
     </header>
-    <h1>既知人物リスト</h1>
+    <h1>知人</h1>
+
     <div id="gallery">
         <?php
         $image_folder = "../images/known/";
