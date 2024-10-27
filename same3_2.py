@@ -18,17 +18,17 @@ static_target_danger_folder = './static/images/target_danger'
 
 # knownフォルダとdangerフォルダの画像をエンコード
 known_encodings = []
-for filename in os.listdir(known_folder):
+for filename in os.listdir(static_known_folder):
     if filename.endswith('.jpg'):
-        image = face_recognition.load_image_file(os.path.join(known_folder, filename))
+        image = face_recognition.load_image_file(os.path.join(static_known_folder, filename))
         encoding = face_recognition.face_encodings(image)
         if encoding:
             known_encodings.append(encoding[0])
 
 danger_encodings = []
-for filename in os.listdir(danger_folder):
+for filename in os.listdir(static_danger_folder):
     if filename.endswith('.jpg'):
-        image = face_recognition.load_image_file(os.path.join(danger_folder, filename))
+        image = face_recognition.load_image_file(os.path.join(static_danger_folder, filename))
         encoding = face_recognition.face_encodings(image)
         if encoding:
             danger_encodings.append(encoding[0])
