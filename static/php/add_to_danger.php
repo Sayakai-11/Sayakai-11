@@ -1,7 +1,7 @@
 <?php
 // 元の画像フォルダとコピー先フォルダのパスを指定
 $image_folder = "../images/danger/";
-$destination_folder = "../images/target_danger/";
+$destination_folder = "../images/danger_target/";
 
 if (isset($_POST['fileName'])) {
     $fileName = basename($_POST['fileName']); // ファイル名をサニタイズ

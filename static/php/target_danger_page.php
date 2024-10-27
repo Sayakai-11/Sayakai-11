@@ -45,8 +45,8 @@
     <div id="gallery">
         <?php
         // target_danger.pyの実行タイミング管理用ファイル
-        $timestamp_file = "../images/target_danger/timestamp.txt";
-        $image_folder = "../images/target_danger/";
+        $timestamp_file = "../images/danger_target/timestamp.txt";
+        $image_folder = "../images/danger_target/";
 
         // 前回実行時のタイムスタンプを読み込み
         $latest_timestamp = 0;
@@ -76,7 +76,7 @@
 
         if ($folder_updated) {
             // Pythonスクリプト
-            $command = "python ../../danger.py";
+            $command = "python python3 ../../../danger.py";
             
             // 実行とエラーチェック
             exec($command, $output, $return_var);

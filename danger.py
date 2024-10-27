@@ -14,10 +14,10 @@ params = urllib.parse.urlencode({
 })
 
 conn = http.client.HTTPSConnection('jphacks24-chocopa.cognitiveservices.azure.com')
-image_folder = '../../static/images/target_danger'
+image_folder = './static/images/target_danger'
 output_data = []
 
-#print("開始")
+print("開始")
 
 for file_name in os.listdir(image_folder):
     #print(f"処理中のファイル: {file_name}")
