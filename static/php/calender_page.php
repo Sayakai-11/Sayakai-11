@@ -7,6 +7,13 @@
     <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/calender_page_index.css">
+    <style>
+        .calendar-container {
+            margin: 0 auto; /* 左右の余白を自動的に設定 */
+            max-width: 1200px; /* 最大幅を設定（必要に応じて調整） */
+            padding: 20px; /* 上下の余白を追加（必要に応じて調整） */
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -22,10 +29,12 @@
           </ul>
         </div>
     </header>
-    <h1>カレンダー</h1>
-    <div id="calendar"></div>
+    <h1 class="calendar-title">カレンダー</h1>
+    <div class="calendar-container">
+        <div id="calendar"></div>
+    </div>
 
-    <h2>選択された日付に来た人たちの写真</h2>
+    <h2 class="picture-title">選択された日付に来た人たちの写真</h2>
     <div id="photo-list">
         <!-- 写真一覧がここに表示されます -->
     </div>
