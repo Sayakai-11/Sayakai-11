@@ -11,8 +11,10 @@ CORS(app)
 # 画像保存フォルダ
 known_folder = './known'
 danger_folder = './danger'
+target_danger_folder = './target_danger'
 static_known_folder = './static/images/known'  # フロントエンドに表示するためのフォルダ
 static_danger_folder = './static/images/danger'
+static_target_danger_folder = './static/images/target_danger'
 
 # knownフォルダとdangerフォルダの画像をエンコード
 known_encodings = []
@@ -30,6 +32,14 @@ for filename in os.listdir(danger_folder):
         encoding = face_recognition.face_encodings(image)
         if encoding:
             danger_encodings.append(encoding[0])
+            
+target_danger_encodings = []
+for filename in os.listdir(static_target_danger_folder):
+    if filename.endswith('.jpg'):
+        image = face_recognition.load_image_file(os.path.join(static_target_danger_folder, filename))
+        encoding = face_recognition.face_encodings(image)
+        if encoding:
+            target_danger_encodings.append(encoding[0])
 
 def generate_filename(prefix):
     """日付と時間を含むファイル名を生成"""
@@ -84,11 +94,18 @@ def detect_face():
     face_encoding = face_encodings[0]
     result = "unknown"
 
+    # target_dangerフォルダの顔と比較
+    for target_danger_encoding in target_danger_encodings:
+        if compare_faces(target_danger_encoding, face_encoding):
+            result = "target_danger"
+            print("危険な人物が検出されました！")
+            break
+        
     # dangerフォルダの顔と比較
     for danger_encoding in danger_encodings:
         if compare_faces(danger_encoding, face_encoding):
             result = "danger"
-            print("危険な人物が検出されました！")
+            print("不審者が検出されました！")
             break
 
     # knownフォルダの顔と比較
@@ -112,6 +129,12 @@ def detect_face():
         image_file.save(save_path)
         return jsonify({'result': 'known', 'image_url': f"/static/images/known/{os.path.basename(save_path)}"})
     
+    elif result == "target_danger":
+        save_path = os.path.join(target_danger_folder, generate_filename("target_danger"))
+        image_file.seek(0)
+        image_file.save(save_path)
+        return jsonify({'result': 'target_danger', 'image_url': f"/static/images/target_danger/{os.path.basename(save_path)}"})
+    
     return jsonify({'result': 'unknown'})
 
 @app.route('/register', methods=['POST'])
@@ -125,7 +148,7 @@ def register_face():
         save_path = os.path.join(static_known_folder, generate_filename("known"))
     elif person_type == 'danger':
         save_path = os.path.join(static_danger_folder, generate_filename("danger"))
-
+        
     # 画像を保存
     image_file.save(save_path)
     
